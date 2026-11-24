@@ -1,5 +1,117 @@
-<h1>Showing article details</h1>
 
-<p><strong>Title: </strong><%= @article.title %></p>
-<p><strong>Description: </strong><%= @article.description %></p>
-<p><strong>Rating: </strong><%= @article.rating %></p>
+<style>
+  .article-show-container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 2px solid #333;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ffffff, #eaf2ff);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .article-show-container h1 {
+    text-align: center;
+    color: #0d6efd;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #0d6efd;
+  }
+
+  .article-detail {
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    background-color: white;
+    transition: 0.3s;
+  }
+
+  .article-detail:hover {
+    background-color: #e0f0ff;
+    transform: translateY(-3px);
+  }
+
+  .article-detail strong {
+    color: #198754;
+    font-size: 17px;
+  }
+
+  .article-rating {
+    display: inline-block;
+    background-color: #ffc107;
+    color: #222;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+
+  .show-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+  }
+
+  .back-btn {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .back-btn:hover {
+    background-color: #084298;
+    color: white;
+  }
+
+  .edit-btn {
+    background-color: #198754;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+
+  .edit-btn:hover {
+    background-color: #146c43;
+    color: white;
+  }
+</style>
+
+<div class="article-show-container">
+
+  <h1>Article Details</h1>
+
+  <div class="article-detail">
+    <strong>Title:</strong>
+    <p><%= @article.title %></p>
+  </div>
+
+  <div class="article-detail">
+    <strong>Description:</strong>
+    <p><%= @article.description %></p>
+  </div>
+
+  <div class="article-detail">
+    <strong>Rating:</strong>
+    <p>
+      <span class="article-rating">
+        <%= @article.rating %> / 5
+      </span>
+    </p>
+  </div>
+
+  <div class="show-actions">
+
+    <%= link_to 'Back to Articles', articles_path,
+        class: 'back-btn' %>
+
+    <%= link_to 'Edit Article', edit_article_path(@article),
+        class: 'edit-btn' %>
+
+  </div>
+
+</div>

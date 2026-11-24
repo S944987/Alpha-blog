@@ -1,0 +1,107 @@
+
+<style>
+  .article-form-container {
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+
+  .article-form-container h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+  }
+
+  .article-form-container input[type="text"],
+  .article-form-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .article-form-container textarea {
+    min-height: 120px;
+  }
+
+  .article-form-container label {
+    font-weight: bold;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .save-btn {
+    background-color: #198754;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .back-btn {
+    background-color: #555;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+
+  .error-box {
+    border: 1px solid red;
+    background-color: #ffe6e6;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+</style>
+
+<div class="article-form-container">
+
+  <h1>Edit Article</h1>
+
+  <% if @article.errors.any? %>
+    <div class="error-box">
+      <h3>The following errors prevented the article from being saved:</h3>
+      <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with(model: @article, local: true) do |f| %>
+
+    <p>
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+    </p>
+
+    <p>
+      <%= f.label :description %><br>
+      <%= f.text_area :description %>
+    </p>
+
+    <p>
+      <%= f.label :rating %><br>
+      <%= f.text_field :rating %>
+    </p>
+
+    <div class="form-actions">
+      <%= f.submit 'Update Article', class: 'save-btn' %>
+
+      <%= link_to 'Back', articles_path, class: 'back-btn' %>
+    </div>
+
+  <% end %>
+
+</div>

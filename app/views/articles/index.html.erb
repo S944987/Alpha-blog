@@ -1,23 +1,174 @@
-<h1>All the articles</h1>
+
+<h1 class="page-title">All the Articles</h1>
+
+<style>
+  /* Page heading */
+  .page-title {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 36px;
+    margin: 30px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  th, td {
+    border: 2px solid #444;
+    padding: 14px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #273c75;
+    color: white;
+    font-size: 17px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f1f2f6;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+
+  tr:hover {
+    background-color: #dfe6e9;
+    transition: 0.3s;
+  }
+
+  /* Common button styling */
+  .custom-btn {
+    display: inline-block;
+    padding: 9px 18px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  }
+
+  /* Create button */
+  .create-btn {
+    background-color: #0984e3;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+  }
+
+  .create-btn:hover {
+    background-color: #0652DD;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  }
+
+  /* Show button */
+  .show-btn {
+    background-color: #00b894;
+    color: white;
+  }
+
+  .show-btn:hover {
+    background-color: #008f72;
+    color: white;
+    transform: scale(1.1);
+  }
+
+  /* Edit button */
+  .edit-btn {
+    background-color: #f39c12;
+    color: white;
+  }
+
+  .edit-btn:hover {
+    background-color: #d35400;
+    color: white;
+    transform: scale(1.1);
+  }
+
+  /* Delete button */
+  .delete-btn {
+    background-color: #e74c3c;
+    color: white;
+  }
+
+  .delete-btn:hover {
+    background-color: #c0392b;
+    color: white;
+    transform: scale(1.1);
+  }
+
+  /* Remove default form spacing around delete button */
+  .delete-form {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+<div style="text-align: right; margin-bottom: 20px;">
+  <%= link_to '+ Create New Article', new_article_path,
+      class: 'custom-btn create-btn' %>
+</div>
 
 <table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Rating</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Rating</th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
 
-    <tbody>
-        <% @articles.each do |article| %>
-        <tr>
-            <td><%= article.title %></td>
-            <td><%= article.description %></td>
-            <td><%= article.rating %></td>
-            <td>placeholder</td>
-        </tr>
-        <% end %>
-    </tbody>
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.title %></td>
+
+        <td><%= article.description %></td>
+
+        <td><%= article.rating %></td>
+
+        <td>
+          <%= link_to 'Show', article_path(article),
+              class: 'custom-btn show-btn' %>
+        </td>
+
+        <td>
+          <%= link_to 'Edit', edit_article_path(article),
+              class: 'custom-btn edit-btn' %>
+        </td>
+
+        <td>
+          <%= button_to 'Delete', article_path(article),
+              method: :delete,
+              class: 'custom-btn delete-btn',
+              form: { class: 'delete-form' },
+              data: { turbo_confirm: 'Are you sure you want to delete this article?' } %>
+        </td>
+      </tr>
+    <% end %>
+
+    <% if @articles.empty? %>
+      <tr>
+        <td colspan="6">No articles available. Create your first article!</td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
